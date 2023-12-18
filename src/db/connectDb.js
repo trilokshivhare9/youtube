@@ -1,14 +1,16 @@
-import mongoose from "mongoose"
-import { DB_NAME } from "../constants"
-
-
-const connectDb = async()=>{
+import mongoose from 'mongoose';
+import { DB_NAME } from '../constants.js';
+const connectDb = async () => {
     try {
-       const connectionInstance =  await mongoose.connect(`${process.env.DATABASE_URI}/${DB_NAME}`);
+        const connectionInstance = await mongoose.connect(`${process.env.DATABASE_URI}/${DB_NAME}`, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
 
-       console.log(`database connected ${connectionInstance}`);
+        console.log(`Database connected: ${connectionInstance.connection.host}`);
     } catch (error) {
-        console.error(error)
+        console.error(`Error in connection: ${error}`);
     }
-}
-export default connectDb
+};
+
+export default connectDb;
